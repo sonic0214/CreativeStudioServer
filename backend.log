@@ -1,0 +1,372 @@
+
+  __    _   ___  
+ / /\  | | | |_) 
+/_/--\ |_| |_| \_ v1.62.0, built with Go go1.24.5
+
+watching .
+watching config
+watching controllers
+watching middleware
+watching models
+watching pkg
+watching pkg/auth
+watching pkg/cache
+watching pkg/database
+watching pkg/logger
+watching pkg/queue
+watching pkg/video_engine
+watching routes
+watching services
+!exclude tmp
+building...
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-08 21:30:06"}
+{"level":"fatal","msg":"Failed to initialize database: failed to connect to database: Error 1045 (28000): Access denied for user 'root'@'10.116.39.2:26944' (using password: YES)","time":"2025-08-08 21:30:06"}
+Process Exit with Code: 1
+config/config.go has changed
+building...
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-08 21:36:47"}
+{"level":"info","msg":"/Users/adam/go/src/CreativeStudioFull/CreativeStudioServer/pkg/database/database.go:59\n[11.276ms] [rows:-] SELECT DATABASE()","time":"2025-08-08 21:36:47"}
+{"level":"info","msg":"/Users/adam/go/src/CreativeStudioFull/CreativeStudioServer/pkg/database/database.go:59\n[26.838ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'zhiji_mathai%' ORDER BY SCHEMA_NAME='zhiji_mathai' DESC,SCHEMA_NAME limit 1","time":"2025-08-08 21:36:47"}
+{"level":"info","msg":"/Users/adam/go/src/CreativeStudioFull/CreativeStudioServer/pkg/database/database.go:59\n[26.094ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'zhiji_mathai' AND table_name = 'users' AND table_type = 'BASE TABLE'","time":"2025-08-08 21:36:47"}
+{"level":"info","msg":"/Users/adam/go/src/CreativeStudioFull/CreativeStudioServer/pkg/database/database.go:59 Error 1142 (42000): CREATE command denied to user 'homework'@'10.112.36.62' for table 'users'\n[9.883ms] [rows:0] CREATE TABLE `users` (`id` bigint unsigned AUTO_INCREMENT,`username` varchar(50) NOT NULL,`email` varchar(100) NOT NULL,`password` longtext NOT NULL,`role` varchar(20) NOT NULL DEFAULT 'user',`avatar` varchar(255),`is_active` boolean DEFAULT true,`last_login` datetime(3) NULL,`created_at` datetime(3) NULL,`updated_at` datetime(3) NULL,`deleted_at` datetime(3) NULL,PRIMARY KEY (`id`),UNIQUE INDEX `idx_users_username` (`username`),UNIQUE INDEX `idx_users_email` (`email`),INDEX `idx_users_deleted_at` (`deleted_at`))","time":"2025-08-08 21:36:47"}
+{"level":"fatal","msg":"Failed to initialize database: failed to auto-migrate models: Error 1142 (42000): CREATE command denied to user 'homework'@'10.112.36.62' for table 'users'","time":"2025-08-08 21:36:47"}
+Process Exit with Code: 1
+pkg/database/database.go has changed
+building...
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-08 21:36:58"}
+{"level":"info","msg":"Database connected successfully","time":"2025-08-08 21:36:58"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-08 21:36:58"}
+main.go has changed
+building...
+# creative-studio-server
+./main.go:17:2: "creative-studio-server/pkg/database" imported and not used
+failed to build, error: exit status 1
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 11:07:12"}
+{"level":"info","msg":"Database connected successfully","time":"2025-08-09 11:07:12"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 11:07:12"}
+main.go has changed
+building...
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 11:07:40"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 11:07:40"}
+controllers/video_controller.go has changed
+building...
+# creative-studio-server/pkg/video_engine
+pkg/video_engine/ffmpeg_processor.go:4:2: "context" imported and not used
+pkg/video_engine/ffmpeg_processor.go:9:2: "path/filepath" imported and not used
+pkg/video_engine/ffmpeg_processor.go:12:2: "time" imported and not used
+pkg/video_engine/ffmpeg_processor.go:287:2: declared and not used: currentTime
+pkg/video_engine/ffmpeg_processor.go:416:33: cannot use stdout (variable of interface type io.ReadCloser) as *os.File value in argument to NewProgressScanner: need type assertion
+failed to build, error: exit status 1
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 11:35:19"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 11:35:19"}
+controllers/video_controller.go has changed
+building...
+# creative-studio-server/pkg/video_engine
+pkg/video_engine/ffmpeg_processor.go:4:2: "context" imported and not used
+pkg/video_engine/ffmpeg_processor.go:9:2: "path/filepath" imported and not used
+pkg/video_engine/ffmpeg_processor.go:12:2: "time" imported and not used
+pkg/video_engine/ffmpeg_processor.go:287:2: declared and not used: currentTime
+pkg/video_engine/ffmpeg_processor.go:416:33: cannot use stdout (variable of interface type io.ReadCloser) as *os.File value in argument to NewProgressScanner: need type assertion
+failed to build, error: exit status 1
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 11:35:48"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 11:35:48"}
+pkg/video_engine/ffmpeg_processor.go has changed
+building...
+# creative-studio-server/pkg/video_engine
+pkg/video_engine/ffmpeg_processor.go:284:2: declared and not used: currentTime
+pkg/video_engine/ffmpeg_processor.go:413:33: cannot use stdout (variable of interface type io.ReadCloser) as *os.File value in argument to NewProgressScanner: need type assertion
+failed to build, error: exit status 1
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 11:35:59"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 11:35:59"}
+pkg/video_engine/ffmpeg_processor.go has changed
+building...
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 11:36:56"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 11:36:56"}
+routes/routes.go has changed
+building...
+# creative-studio-server/routes
+routes/routes.go:10:21: not enough arguments in call to controllers.NewVideoController
+	have ()
+	want (*config.Config)
+routes/routes.go:30:39: videoController.GetVideo undefined (type *controllers.VideoController has no field or method GetVideo)
+routes/routes.go:31:36: videoController.ListVideos undefined (type *controllers.VideoController has no field or method ListVideos)
+routes/routes.go:32:42: videoController.DeleteVideo undefined (type *controllers.VideoController has no field or method DeleteVideo)
+failed to build, error: exit status 1
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 14:24:38"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 14:24:38"}
+routes/routes.go has changed
+building...
+# creative-studio-server/routes
+routes/routes.go:10:21: not enough arguments in call to controllers.NewVideoController
+	have ()
+	want (*config.Config)
+routes/routes.go:30:39: videoController.GetVideo undefined (type *controllers.VideoController has no field or method GetVideo)
+routes/routes.go:31:36: videoController.ListVideos undefined (type *controllers.VideoController has no field or method ListVideos)
+routes/routes.go:32:42: videoController.DeleteVideo undefined (type *controllers.VideoController has no field or method DeleteVideo)
+failed to build, error: exit status 1
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 14:24:48"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 14:24:48"}
+controllers/video_controller.go has changed
+building...
+# creative-studio-server/routes
+routes/routes.go:30:39: videoController.GetVideo undefined (type *controllers.VideoController has no field or method GetVideo)
+routes/routes.go:31:36: videoController.ListVideos undefined (type *controllers.VideoController has no field or method ListVideos)
+routes/routes.go:32:42: videoController.DeleteVideo undefined (type *controllers.VideoController has no field or method DeleteVideo)
+failed to build, error: exit status 1
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 14:25:38"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/auth/register     --> creative-studio-server/controllers.(*AuthController).Register-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/login        --> creative-studio-server/controllers.(*AuthController).Login-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/refresh      --> creative-studio-server/controllers.(*AuthController).RefreshToken-fm (5 handlers)
+[GIN-debug] GET    /api/v1/auth/profile      --> creative-studio-server/controllers.(*AuthController).Profile-fm (6 handlers)
+[GIN-debug] POST   /api/v1/auth/change-password --> creative-studio-server/controllers.(*AuthController).ChangePassword-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/search --> creative-studio-server/controllers.(*AtomicClipController).SearchAtomicClips-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).GetAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/:id/similar --> creative-studio-server/controllers.(*AtomicClipController).GetSimilarClips-fm (6 handlers)
+[GIN-debug] POST   /api/v1/atomic-clips      --> creative-studio-server/controllers.(*AtomicClipController).CreateAtomicClip-fm (6 handlers)
+[GIN-debug] PUT    /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).UpdateAtomicClip-fm (6 handlers)
+[GIN-debug] DELETE /api/v1/atomic-clips/:id  --> creative-studio-server/controllers.(*AtomicClipController).DeleteAtomicClip-fm (6 handlers)
+[GIN-debug] GET    /api/v1/atomic-clips/my-clips --> creative-studio-server/controllers.(*AtomicClipController).GetUserAtomicClips-fm (6 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 14:25:38"}
+routes/routes.go has changed
+building...
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 14:25:47"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (5 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (5 handlers)
+[GIN-debug] POST   /api/v1/videos/upload     --> creative-studio-server/controllers.(*VideoController).UploadVideo-fm (5 handlers)
+[GIN-debug] POST   /api/v1/videos/concatenate --> creative-studio-server/controllers.(*VideoController).ConcatenateVideos-fm (5 handlers)
+[GIN-debug] GET    /api/v1/videos/files      --> creative-studio-server/controllers.(*VideoController).ListFiles-fm (5 handlers)
+[GIN-debug] GET    /api/v1/videos/output     --> creative-studio-server/controllers.(*VideoController).ListOutputFiles-fm (5 handlers)
+[GIN-debug] GET    /api/v1/videos/info/:filename --> creative-studio-server/controllers.(*VideoController).GetVideoInfo-fm (5 handlers)
+[GIN-debug] GET    /api/v1/videos/download/:filename --> creative-studio-server/controllers.(*VideoController).DownloadVideo-fm (5 handlers)
+[GIN-debug] DELETE /api/v1/videos/:filename  --> creative-studio-server/controllers.(*VideoController).DeleteFile-fm (5 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 14:25:47"}
+main.go has changed
+building...
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 14:25:51"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (4 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (4 handlers)
+[GIN-debug] POST   /api/v1/videos/upload     --> creative-studio-server/controllers.(*VideoController).UploadVideo-fm (4 handlers)
+[GIN-debug] POST   /api/v1/videos/concatenate --> creative-studio-server/controllers.(*VideoController).ConcatenateVideos-fm (4 handlers)
+[GIN-debug] GET    /api/v1/videos/files      --> creative-studio-server/controllers.(*VideoController).ListFiles-fm (4 handlers)
+[GIN-debug] GET    /api/v1/videos/output     --> creative-studio-server/controllers.(*VideoController).ListOutputFiles-fm (4 handlers)
+[GIN-debug] GET    /api/v1/videos/info/:filename --> creative-studio-server/controllers.(*VideoController).GetVideoInfo-fm (4 handlers)
+[GIN-debug] GET    /api/v1/videos/download/:filename --> creative-studio-server/controllers.(*VideoController).DownloadVideo-fm (4 handlers)
+[GIN-debug] DELETE /api/v1/videos/:filename  --> creative-studio-server/controllers.(*VideoController).DeleteFile-fm (4 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 14:25:51"}
+config/config.go has changed
+building...
+running...
+{"level":"info","msg":"Starting Creative Studio Server...","time":"2025-08-09 14:33:01"}
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /health                   --> creative-studio-server/routes.healthCheck (4 handlers)
+[GIN-debug] GET    /                         --> creative-studio-server/routes.SetupRoutes.func1 (4 handlers)
+[GIN-debug] POST   /api/v1/videos/upload     --> creative-studio-server/controllers.(*VideoController).UploadVideo-fm (4 handlers)
+[GIN-debug] POST   /api/v1/videos/concatenate --> creative-studio-server/controllers.(*VideoController).ConcatenateVideos-fm (4 handlers)
+[GIN-debug] GET    /api/v1/videos/files      --> creative-studio-server/controllers.(*VideoController).ListFiles-fm (4 handlers)
+[GIN-debug] GET    /api/v1/videos/output     --> creative-studio-server/controllers.(*VideoController).ListOutputFiles-fm (4 handlers)
+[GIN-debug] GET    /api/v1/videos/info/:filename --> creative-studio-server/controllers.(*VideoController).GetVideoInfo-fm (4 handlers)
+[GIN-debug] GET    /api/v1/videos/download/:filename --> creative-studio-server/controllers.(*VideoController).DownloadVideo-fm (4 handlers)
+[GIN-debug] DELETE /api/v1/videos/:filename  --> creative-studio-server/controllers.(*VideoController).DeleteFile-fm (4 handlers)
+{"level":"info","msg":"Server starting on port 8080","time":"2025-08-09 14:33:01"}
+{"client_ip":"::1","error":"","latency":5449000,"level":"info","method":"GET","msg":"HTTP Request","path":"/health","protocol":"HTTP/1.1","status_code":200,"time":"2025-08-09 16:15:38","timestamp":"2025-08-09T16:15:38+08:00","user_agent":"curl/8.7.1"}
+{"client_ip":"::1","error":"","latency":521917,"level":"info","method":"GET","msg":"HTTP Request","path":"/","protocol":"HTTP/1.1","status_code":200,"time":"2025-08-09 16:23:31","timestamp":"2025-08-09T16:23:31+08:00","user_agent":"curl/8.7.1"}
+{"client_ip":"::1","error":"","latency":273292,"level":"info","method":"GET","msg":"HTTP Request","path":"/api/v1/videos/files","protocol":"HTTP/1.1","status_code":500,"time":"2025-08-09 16:23:31","timestamp":"2025-08-09T16:23:31+08:00","user_agent":"curl/8.7.1"}
+watching output
+watching uploads
+{"client_ip":"::1","error":"","latency":1511667,"level":"info","method":"GET","msg":"HTTP Request","path":"/api/v1/videos/files","protocol":"HTTP/1.1","status_code":200,"time":"2025-08-09 16:23:45","timestamp":"2025-08-09T16:23:45+08:00","user_agent":"curl/8.7.1"}
+{"client_ip":"::1","error":"","latency":570041,"level":"info","method":"GET","msg":"HTTP Request","path":"/","protocol":"HTTP/1.1","status_code":200,"time":"2025-08-09 16:25:49","timestamp":"2025-08-09T16:25:49+08:00","user_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+{"client_ip":"::1","error":"","latency":1500,"level":"info","method":"GET","msg":"HTTP Request","path":"/favicon.ico","protocol":"HTTP/1.1","status_code":404,"time":"2025-08-09 16:25:50","timestamp":"2025-08-09T16:25:50+08:00","user_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"}
+{"client_ip":"::1","error":"","latency":58042,"level":"info","method":"GET","msg":"HTTP Request","path":"/health","protocol":"HTTP/1.1","status_code":200,"time":"2025-08-09 16:39:43","timestamp":"2025-08-09T16:39:43+08:00","user_agent":"curl/8.7.1"}

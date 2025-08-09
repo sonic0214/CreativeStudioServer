@@ -27,12 +27,20 @@ type ServerConfig struct {
 }
 
 type DatabaseConfig struct {
-	Host     string
-	Port     int
-	User     string
-	Password string
-	DBName   string
-	SSLMode  string
+	Host            string
+	Port            int
+	User            string
+	Password        string
+	DBName          string
+	SSLMode         string
+	ConnMaxLifeTime time.Duration
+	ConnTimeOut     time.Duration
+	MaxIdleTime     time.Duration
+	MaxIdleConns    int
+	MaxOpenConns    int
+	ReadTimeOut     time.Duration
+	WriteTimeOut    time.Duration
+	Service         string
 }
 
 type RedisConfig struct {
@@ -79,9 +87,39 @@ func LoadConfig() error {
 		return fmt.Errorf("invalid JWT_EXPIRES_IN duration: %w", err)
 	}
 
-	dbPort, err := strconv.Atoi(getEnvOrDefault("DB_PORT", "5432"))
+	connMaxLifeTime, err := time.ParseDuration(getEnvOrDefault("DB_CONN_MAX_LIFETIME", "3600s"))
 	if err != nil {
-		return fmt.Errorf("invalid DB_PORT: %w", err)
+		return fmt.Errorf("invalid DB_CONN_MAX_LIFETIME duration: %w", err)
+	}
+
+	connTimeOut, err := time.ParseDuration(getEnvOrDefault("DB_CONN_TIMEOUT", "1500ms"))
+	if err != nil {
+		return fmt.Errorf("invalid DB_CONN_TIMEOUT duration: %w", err)
+	}
+
+	maxIdleTime, err := time.ParseDuration(getEnvOrDefault("DB_MAX_IDLE_TIME", "300s"))
+	if err != nil {
+		return fmt.Errorf("invalid DB_MAX_IDLE_TIME duration: %w", err)
+	}
+
+	readTimeOut, err := time.ParseDuration(getEnvOrDefault("DB_READ_TIMEOUT", "10s"))
+	if err != nil {
+		return fmt.Errorf("invalid DB_READ_TIMEOUT duration: %w", err)
+	}
+
+	writeTimeOut, err := time.ParseDuration(getEnvOrDefault("DB_WRITE_TIMEOUT", "10s"))
+	if err != nil {
+		return fmt.Errorf("invalid DB_WRITE_TIMEOUT duration: %w", err)
+	}
+
+	maxIdleConns, err := strconv.Atoi(getEnvOrDefault("DB_MAX_IDLE_CONNS", "50"))
+	if err != nil {
+		return fmt.Errorf("invalid DB_MAX_IDLE_CONNS: %w", err)
+	}
+
+	maxOpenConns, err := strconv.Atoi(getEnvOrDefault("DB_MAX_OPEN_CONNS", "50"))
+	if err != nil {
+		return fmt.Errorf("invalid DB_MAX_OPEN_CONNS: %w", err)
 	}
 
 	redisPort, err := strconv.Atoi(getEnvOrDefault("REDIS_PORT", "6379"))
@@ -101,12 +139,20 @@ func LoadConfig() error {
 			Version: "1.0.0",
 		},
 		Database: DatabaseConfig{
-			Host:     getEnvOrDefault("DB_HOST", "localhost"),
-			Port:     dbPort,
-			User:     getEnvOrDefault("DB_USER", "postgres"),
-			Password: getEnvOrDefault("DB_PASSWORD", "password"),
-			DBName:   getEnvOrDefault("DB_NAME", "creative_studio"),
-			SSLMode:  getEnvOrDefault("DB_SSL_MODE", "disable"),
+			Host:            getEnvOrDefault("DB_HOST", "mysql-topublic.suanshubang.cc"),
+			Port:            8020, // 硬编码端口为 8020
+			User:            getEnvOrDefault("DB_USER", "homework"),
+			Password:        getEnvOrDefault("DB_PASSWORD", "homework"),
+			DBName:          getEnvOrDefault("DB_NAME", "zhiji_mathai"),
+			SSLMode:         getEnvOrDefault("DB_SSL_MODE", "disable"),
+			ConnMaxLifeTime: connMaxLifeTime,
+			ConnTimeOut:     connTimeOut,
+			MaxIdleTime:     maxIdleTime,
+			MaxIdleConns:    maxIdleConns,
+			MaxOpenConns:    maxOpenConns,
+			ReadTimeOut:     readTimeOut,
+			WriteTimeOut:    writeTimeOut,
+			Service:         getEnvOrDefault("DB_SERVICE", "demo"),
 		},
 		Redis: RedisConfig{
 			Host:     getEnvOrDefault("REDIS_HOST", "localhost"),
@@ -122,8 +168,8 @@ func LoadConfig() error {
 			ExpiresIn: jwtExpiresIn,
 		},
 		FFmpeg: FFmpegConfig{
-			FFmpegPath:  getEnvOrDefault("FFMPEG_PATH", "/usr/local/bin/ffmpeg"),
-			FFprobePath: getEnvOrDefault("FFPROBE_PATH", "/usr/local/bin/ffprobe"),
+			FFmpegPath:  getEnvOrDefault("FFMPEG_PATH", "ffmpeg"),
+			FFprobePath: getEnvOrDefault("FFPROBE_PATH", "ffprobe"),
 		},
 		Storage: StorageConfig{
 			UploadPath:    getEnvOrDefault("UPLOAD_PATH", "./uploads"),
@@ -146,13 +192,15 @@ func getEnvOrDefault(key, defaultValue string) string {
 }
 
 func (c *Config) GetDSN() string {
-	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
-		c.Database.Host,
-		c.Database.Port,
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local&timeout=%s&readTimeout=%s&writeTimeout=%s",
 		c.Database.User,
 		c.Database.Password,
+		c.Database.Host,
+		c.Database.Port,
 		c.Database.DBName,
-		c.Database.SSLMode,
+		c.Database.ConnTimeOut,
+		c.Database.ReadTimeOut,
+		c.Database.WriteTimeOut,
 	)
 }
 

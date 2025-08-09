@@ -13,10 +13,10 @@ import (
 
 	"creative-studio-server/config"
 	"creative-studio-server/middleware"
-	"creative-studio-server/pkg/cache"
-	"creative-studio-server/pkg/database"
+	// "creative-studio-server/pkg/cache" // disabled
+	// "creative-studio-server/pkg/database" // disabled
 	"creative-studio-server/pkg/logger"
-	"creative-studio-server/pkg/queue"
+	// "creative-studio-server/pkg/queue" // disabled
 	"creative-studio-server/routes"
 )
 
@@ -53,23 +53,23 @@ func main() {
 	logger.InitLogger(cfg)
 	logger.Info("Starting Creative Studio Server...")
 
-	// Initialize database
-	if err := database.InitDatabase(cfg); err != nil {
-		logger.Fatalf("Failed to initialize database: %v", err)
-	}
+	// Initialize database (disabled for simple mode)
+	// if err := database.InitDatabase(cfg); err != nil {
+	// 	logger.Fatalf("Failed to initialize database: %v", err)
+	// }
 
-	// Initialize Redis cache
-	if err := cache.InitRedis(cfg); err != nil {
-		logger.Fatalf("Failed to initialize Redis: %v", err)
-	}
+	// Initialize Redis cache (disabled)
+	// if err := cache.InitRedis(cfg); err != nil {
+	//	logger.Fatalf("Failed to initialize Redis: %v", err)
+	// }
 
-	// Initialize RabbitMQ
-	if err := queue.InitRabbitMQ(cfg); err != nil {
-		logger.Fatalf("Failed to initialize RabbitMQ: %v", err)
-	}
+	// Initialize RabbitMQ (disabled)
+	// if err := queue.InitRabbitMQ(cfg); err != nil {
+	//	logger.Fatalf("Failed to initialize RabbitMQ: %v", err)
+	// }
 
-	// Start background workers
-	startBackgroundWorkers()
+	// Start background workers (disabled - no RabbitMQ)
+	// startBackgroundWorkers()
 
 	// Set Gin mode
 	gin.SetMode(cfg.Server.Mode)
@@ -79,9 +79,8 @@ func main() {
 
 	// Add global middleware
 	r.Use(middleware.Logger())
-	r.Use(middleware.Recovery())
+	r.Use(gin.Recovery())
 	r.Use(middleware.CORS())
-	r.Use(middleware.APIRateLimit())
 
 	// Setup routes
 	routes.SetupRoutes(r)
@@ -129,40 +128,40 @@ func main() {
 func startBackgroundWorkers() {
 	logger.Info("Starting background workers...")
 
-	// Start video processing workers
-	go func() {
-		if err := queue.Queue.ConsumeTask("video_processing", queue.VideoProcessingHandler, 2); err != nil {
-			logger.Errorf("Failed to start video processing workers: %v", err)
-		}
-	}()
+	// Start video processing workers (disabled - no RabbitMQ)
+	// go func() {
+	//	if err := queue.Queue.ConsumeTask("video_processing", queue.VideoProcessingHandler, 2); err != nil {
+	//		logger.Errorf("Failed to start video processing workers: %v", err)
+	//	}
+	// }()
 
-	// Start smart composition workers
-	go func() {
-		if err := queue.Queue.ConsumeTask("smart_composition", queue.SmartCompositionHandler, 1); err != nil {
-			logger.Errorf("Failed to start smart composition workers: %v", err)
-		}
-	}()
+	// Start smart composition workers (disabled - no RabbitMQ)
+	// go func() {
+	//	if err := queue.Queue.ConsumeTask("smart_composition", queue.SmartCompositionHandler, 1); err != nil {
+	//		logger.Errorf("Failed to start smart composition workers: %v", err)
+	//	}
+	// }()
 
-	// Start render task workers
-	go func() {
-		if err := queue.Queue.ConsumeTask("render_tasks", queue.RenderTaskHandler, 3); err != nil {
-			logger.Errorf("Failed to start render task workers: %v", err)
-		}
-	}()
+	// Start render task workers (disabled - no RabbitMQ)
+	// go func() {
+	//	if err := queue.Queue.ConsumeTask("render_tasks", queue.RenderTaskHandler, 3); err != nil {
+	//		logger.Errorf("Failed to start render task workers: %v", err)
+	//	}
+	// }()
 
-	// Start analysis task workers
-	go func() {
-		if err := queue.Queue.ConsumeTask("analysis_tasks", queue.AnalysisTaskHandler, 2); err != nil {
-			logger.Errorf("Failed to start analysis task workers: %v", err)
-		}
-	}()
+	// Start analysis task workers (disabled - no RabbitMQ)
+	// go func() {
+	//	if err := queue.Queue.ConsumeTask("analysis_tasks", queue.AnalysisTaskHandler, 2); err != nil {
+	//		logger.Errorf("Failed to start analysis task workers: %v", err)
+	//	}
+	// }()
 
-	// Start thumbnail generation workers
-	go func() {
-		if err := queue.Queue.ConsumeTask("thumbnail_generation", queue.ThumbnailTaskHandler, 4); err != nil {
-			logger.Errorf("Failed to start thumbnail generation workers: %v", err)
-		}
-	}()
+	// Start thumbnail generation workers (disabled - no RabbitMQ)
+	// go func() {
+	//	if err := queue.Queue.ConsumeTask("thumbnail_generation", queue.ThumbnailTaskHandler, 4); err != nil {
+	//		logger.Errorf("Failed to start thumbnail generation workers: %v", err)
+	//	}
+	// }()
 
 	logger.Info("Background workers started")
 }
@@ -170,15 +169,15 @@ func startBackgroundWorkers() {
 func cleanup() {
 	logger.Info("Cleaning up resources...")
 
-	// Close RabbitMQ connection
-	if err := queue.Queue.Close(); err != nil {
-		logger.Errorf("Failed to close RabbitMQ connection: %v", err)
-	}
+	// Close RabbitMQ connection (disabled)
+	// if err := queue.Queue.Close(); err != nil {
+	//	logger.Errorf("Failed to close RabbitMQ connection: %v", err)
+	// }
 
-	// Close Redis connection
-	if err := cache.Cache.Close(); err != nil {
-		logger.Errorf("Failed to close Redis connection: %v", err)
-	}
+	// Close Redis connection (disabled)
+	// if err := cache.Cache.Close(); err != nil {
+	//	logger.Errorf("Failed to close Redis connection: %v", err)
+	// }
 
 	// Close database connections would be handled by GORM automatically
 	logger.Info("Cleanup completed")

@@ -1,22 +1,24 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
-  postgres:
-    image: postgres:15-alpine
-    container_name: creative-studio-postgres
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: creative-studio-mysql
     environment:
-      POSTGRES_DB: creative_studio
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: creative_studio
+      MYSQL_USER: creative_user
+      MYSQL_PASSWORD: password
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - creative-studio-network
     restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
 
   # Redis Cache
   redis:
@@ -55,9 +57,9 @@ services:
     container_name: creative-studio-server
     environment:
       - GIN_MODE=release
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USER=postgres
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=root
       - DB_PASSWORD=password
       - DB_NAME=creative_studio
       - REDIS_HOST=redis
@@ -73,7 +75,7 @@ services:
     networks:
       - creative-studio-network
     depends_on:
-      - postgres
+      - mysql
       - redis
       - rabbitmq
     restart: unless-stopped
@@ -101,7 +103,7 @@ services:
     restart: unless-stopped
 
 volumes:
-  postgres_data:
+  mysql_data:
     driver: local
   redis_data:
     driver: local

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"gorm.io/driver/postgres"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
@@ -28,7 +28,7 @@ func InitDatabase(cfg *config.Config) error {
 		},
 	)
 
-	DB, err = gorm.Open(postgres.Open(cfg.GetDSN()), &gorm.Config{
+	DB, err = gorm.Open(mysql.Open(cfg.GetDSN()), &gorm.Config{
 		Logger: gormLogger,
 	})
 	if err != nil {
@@ -41,14 +41,15 @@ func InitDatabase(cfg *config.Config) error {
 		return fmt.Errorf("failed to get underlying sql.DB: %w", err)
 	}
 
-	sqlDB.SetMaxOpenConns(25)
-	sqlDB.SetMaxIdleConns(5)
-	sqlDB.SetConnMaxLifetime(5 * time.Minute)
+	sqlDB.SetMaxOpenConns(cfg.Database.MaxOpenConns)
+	sqlDB.SetMaxIdleConns(cfg.Database.MaxIdleConns)
+	sqlDB.SetConnMaxLifetime(cfg.Database.ConnMaxLifeTime)
+	sqlDB.SetConnMaxIdleTime(cfg.Database.MaxIdleTime)
 
-	// Auto-migrate models
-	if err := AutoMigrate(); err != nil {
-		return fmt.Errorf("failed to auto-migrate models: %w", err)
-	}
+	// Auto-migrate models (disabled - manual table creation)
+	// if err := AutoMigrate(); err != nil {
+	// 	return fmt.Errorf("failed to auto-migrate models: %w", err)
+	// }
 
 	pkgLogger.Info("Database connected successfully")
 	return nil
